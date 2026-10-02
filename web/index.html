@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus IQ | Interpretable Statistical ML Campus Resource System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="js/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header / Navigation Bar -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="logo-box">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </div>
+      <div>
+        <div class="brand-title">CAMPUS <span>IQ</span></div>
+        <div class="brand-sub">Interpretable Statistical Machine Learning for Campus Demand & Overcrowding</div>
+      </div>
+    </div>
+    
+    <div class="header-badges">
+      <div class="cpi-badge" id="header-cpi-pill">
+        <span class="cpi-dot"></span>
+        <span class="cpi-label">Campus Pulse:</span>
+        <span class="cpi-val" id="header-cpi-val">52.0</span>
+        <span class="cpi-status" id="header-cpi-status">Moderate</span>
+      </div>
+      <div class="sdg-pill" title="Aligned with UN Sustainable Development Goals 11 & 12">
+        <i class="fa-solid fa-leaf"></i> SDG 11 & 12
+      </div>
+    </div>
+  </header>
+
+  <!-- Main App Layout -->
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="nav-section-label">CORE SYSTEM</div>
+      <button class="nav-btn active" data-tab="tab-overview">
+        <i class="fa-solid fa-gauge-high"></i> Overview & Pulse
+      </button>
+      <button class="nav-btn" data-tab="tab-sports">
+        <i class="fa-solid fa-dumbbell"></i> Sports Complex <span class="badge-pill">Primary</span>
+      </button>
+      <button class="nav-btn" data-tab="tab-food">
+        <i class="fa-solid fa-utensils"></i> Food Outlets (SDG 12)
+      </button>
+      <button class="nav-btn" data-tab="tab-library">
+        <i class="fa-solid fa-book-open"></i> Library & Study
+      </button>
+
+      <div class="nav-section-label">INTERCONNECTED FLOW</div>
+      <button class="nav-btn" data-tab="tab-flow">
+        <i class="fa-solid fa-arrows-split-up-and-left"></i> Campus Demand Flow
+      </button>
+      <button class="nav-btn" data-tab="tab-clustering">
+        <i class="fa-solid fa-circle-nodes"></i> K-Means + PCA Clusters
+      </button>
+
+      <div class="nav-section-label">EVALUATION & RIGOR</div>
+      <button class="nav-btn" data-tab="tab-statistics">
+        <i class="fa-solid fa-chart-line"></i> Statistical Analysis & EDA
+      </button>
+      <button class="nav-btn" data-tab="tab-models">
+        <i class="fa-solid fa-brain"></i> Classical ML Models
+      </button>
+      <button class="nav-btn" data-tab="tab-data">
+        <i class="fa-solid fa-database"></i> Dataset & Transparency
+      </button>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="content-area">
+
+      <!-- ================= TAB 1: OVERVIEW & CPI PULSE ================= -->
+      <section id="tab-overview" class="tab-pane active">
+        <div class="section-hero">
+          <div>
+            <h1>Campus Intelligence & Resource Demand Dashboard</h1>
+            <p>Real-time statistical intelligence transforming campus activity data into actionable crowding mitigation and resource sustainability.</p>
+          </div>
+          <div class="hero-quote">
+            <span class="quote-tag">Principle</span>
+            <span>Campus Activity &rarr; Demand &rarr; Risk &rarr; Recommendation</span>
+          </div>
+        </div>
+
+        <!-- Pulse & Core Metrics Grid -->
+        <div class="grid-3">
+          <!-- Campus Pulse Index Card -->
+          <div class="card pulse-card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-heart-pulse"></i> Campus Pulse Index (CPI)</span>
+              <span class="badge" id="cpi-badge-status">Moderate Load</span>
+            </div>
+            <div class="cpi-dial-wrap">
+              <div class="cpi-circular-gauge">
+                <svg viewBox="0 0 36 36" class="circular-chart">
+                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path id="cpi-gauge-path" class="circle-bar" stroke-dasharray="52, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <text x="18" y="20.35" class="percentage" id="cpi-center-val">52.0</text>
+                </svg>
+              </div>
+              <div class="cpi-explanation">
+                <div class="cpi-advisory" id="cpi-advisory-text">Balanced campus circulation. Standard operational levels with manageable queuing across facilities.</div>
+                <div class="weights-breakdown">
+                  <div class="weight-chip"><span class="w-label">Sports (35%)</span> <span class="w-val" id="cpi-w-sports">18.2</span></div>
+                  <div class="weight-chip"><span class="w-label">Library (30%)</span> <span class="w-val" id="cpi-w-lib">16.5</span></div>
+                  <div class="weight-chip"><span class="w-label">Food (25%)</span> <span class="w-val" id="cpi-w-food">12.1</span></div>
+                  <div class="weight-chip"><span class="w-label">Workload (10%)</span> <span class="w-val" id="cpi-w-work">6.0</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Sports Status Card -->
+          <div class="card status-card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-person-running"></i> Sports Complex Status</span>
+              <span class="badge badge-warning" id="overview-sports-badge">Evening Peak Impending</span>
+            </div>
+            <div class="stat-highlight">
+              <div class="stat-number" id="overview-sports-crowd">128 <span class="stat-unit">/ 200 visitors</span></div>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar-fill" id="overview-sports-bar" style="width: 64%;"></div>
+              </div>
+              <div class="stat-meta">Current Load: <strong id="overview-sports-load">64.0%</strong> &bull; Active Courts: <strong>6/8</strong></div>
+            </div>
+            <div class="action-alert-box alert-warning">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <div><strong>Overcrowding Warning:</strong> Peak rush expected between 17:00 - 20:00 (predicted >80% load). Recommended alternative: 14:00 or 20:30.</div>
+            </div>
+          </div>
+
+          <!-- Food & Library Quick Card -->
+          <div class="card status-card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-store"></i> Dining & Study Status</span>
+              <span class="badge badge-success" id="overview-food-badge">Balanced Orders</span>
+            </div>
+            <div class="split-status">
+              <div class="split-item">
+                <div class="split-label"><i class="fa-solid fa-utensils"></i> Food Outlets (Central Cafeteria)</div>
+                <div class="split-val">148 <span class="sub">orders/hr</span></div>
+                <div class="split-sub">Surplus Risk: <strong class="text-success">Low (2.4%)</strong></div>
+              </div>
+              <div class="split-item">
+                <div class="split-label"><i class="fa-solid fa-book"></i> Library & Study Spaces</div>
+                <div class="split-val">195 <span class="sub">/ 350 seats (55.7%)</span></div>
+                <div class="split-sub">Availability: <strong class="text-info">Moderate Seating</strong></div>
+              </div>
+            </div>
+            <div class="action-alert-box alert-info">
+              <i class="fa-solid fa-circle-check"></i>
+              <div><strong>SDG 12 Impact:</strong> Food surplus is currently optimized within a &le;5% margin, reducing daily kitchen organic waste.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hourly Campus Activity Flow Chart -->
+        <div class="card mt-20">
+          <div class="card-header">
+            <div>
+              <span class="card-title"><i class="fa-solid fa-chart-area"></i> Campus Resource Demand Curves Across Time Slots</span>
+              <div class="card-sub">Comparing mean demand trajectories for Sports, Food, and Study Facilities across the day</div>
+            </div>
+            <div class="badge-legend">
+              <span class="legend-dot sports"></span> Sports Load (%)
+              <span class="legend-dot food"></span> Food Demand (Orders)
+              <span class="legend-dot library"></span> Library Load (%)
+            </div>
+          </div>
+          <div class="chart-container" style="height: 320px;">
+            <canvas id="overviewTrendsChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Quick Best-Time Finder Widget -->
+        <div class="card mt-20 finder-widget">
+          <div class="finder-header">
+            <div>
+              <h3><i class="fa-solid fa-clock-rotate-left"></i> Smart Time-Slot Recommender (Actionable Optimization)</h3>
+              <p>Select your intended facility visit time to see immediate congestion analysis and lower-demand alternative windows.</p>
+            </div>
+          </div>
+          <div class="finder-controls">
+            <div class="form-group">
+              <label>Target Facility</label>
+              <select id="quick-finder-facility" class="form-control">
+                <option value="sports">Sports Complex (Gym / Courts)</option>
+                <option value="library">Main Library / Study Space</option>
+                <option value="food">Food Outlets (Cafeteria / Kiosk)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Planned Time</label>
+              <select id="quick-finder-hour" class="form-control">
+                <option value="8">08:00 AM (Morning)</option>
+                <option value="10">10:00 AM (Late Morning)</option>
+                <option value="12">12:00 PM (Noon / Lunch)</option>
+                <option value="14">02:00 PM (Afternoon)</option>
+                <option value="18" selected>06:00 PM (Evening Peak)</option>
+                <option value="20">08:00 PM (Night)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Academic Context</label>
+              <select id="quick-finder-exam" class="form-control">
+                <option value="0" selected>Regular Semester Week</option>
+                <option value="1">Exam / Midterm Period</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" id="btn-quick-recommend">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Check Congestion & Best Slot
+            </button>
+          </div>
+          <div id="quick-recommend-output" class="recommend-results mt-15">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 2: SPORTS COMPLEX (CORE FOCUS) ================= -->
+      <section id="tab-sports" class="tab-pane">
+        <div class="section-hero">
+          <div>
+            <h1>Sports Complex Overcrowding Intelligence</h1>
+            <p>Primary focus: Predicting facility visitor count, court loads, overcrowding risks, and generating lower-demand time recommendations.</p>
+          </div>
+          <div class="hero-stats">
+            <div class="pill-stat">Capacity: <strong>200 visitors</strong></div>
+            <div class="pill-stat">Overcrowd Threshold: <strong>80.0% (160+ people)</strong></div>
+          </div>
+        </div>
+
+        <div class="grid-2-1">
+          <!-- Interactive Simulator Controls -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-sliders"></i> Scenario Simulator & Input Factors</span>
+              <span class="badge badge-info">Interactive What-If</span>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Time Slot / Starting Hour: <strong id="val-disp-hour">18:00 (Evening)</strong></label>
+                <input type="range" id="sim-hour" min="8" max="21" step="1" value="18" class="form-range">
+              </div>
+              <div class="form-group">
+                <label>Day of Week</label>
+                <select id="sim-day" class="form-control">
+                  <option value="0">Monday</option>
+                  <option value="1">Tuesday</option>
+                  <option value="2">Wednesday</option>
+                  <option value="3">Thursday</option>
+                  <option value="4" selected>Friday</option>
+                  <option value="5">Saturday</option>
+                  <option value="6">Sunday</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Classes Dismissing Nearby Within 30m: <strong id="val-disp-classes">3 Batches</strong></label>
+                <input type="range" id="sim-classes" min="0" max="5" step="1" value="3" class="form-range">
+              </div>
+              <div class="form-group">
+                <label>Incoming Crowd Momentum (Prev Slot Visitors): <strong id="val-disp-prev">95</strong></label>
+                <input type="range" id="sim-prev-crowd" min="15" max="200" step="5" value="95" class="form-range">
+              </div>
+              <div class="form-group">
+                <label>Campus Events / Tournaments</label>
+                <select id="sim-event" class="form-control">
+                  <option value="none">No Events</option>
+                  <option value="sports_match">Scheduled Sports Match</option>
+                  <option value="tournament" selected>Inter-Collegiate Tournament</option>
+                  <option value="cultural">Campus Cultural Fest</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Academic Period</label>
+                <select id="sim-academic" class="form-control">
+                  <option value="regular" selected>Regular Academic Term</option>
+                  <option value="exam">Midterms / Exam Finals Week</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Weather Condition</label>
+                <select id="sim-weather" class="form-control">
+                  <option value="clear" selected>Clear & Comfortable (24°C)</option>
+                  <option value="hot">High Heat (34°C)</option>
+                  <option value="rain">Rain / Storm (Outdoor Suspended)</option>
+                </select>
+              </div>
+              <div class="form-group flex-align-end">
+                <button class="btn btn-primary w-100" id="btn-run-sports-sim">
+                  <i class="fa-solid fa-calculator"></i> Run Classical ML Prediction
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real-Time Prediction Gauge Card -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-bullseye"></i> Prediction Result</span>
+              <span class="badge" id="sports-risk-badge">High Overcrowding</span>
+            </div>
+            <div class="prediction-highlight-box">
+              <div class="pred-label">Predicted Sports Visitors</div>
+              <div class="pred-val" id="pred-sports-count">174 <span class="unit">visitors</span></div>
+              <div class="pred-meter">
+                <div class="meter-bar" id="pred-meter-bar" style="width: 87%;"></div>
+                <div class="meter-threshold" style="left: 80%;" title="Overcrowding threshold (80%)"></div>
+              </div>
+              <div class="meter-labels">
+                <span>0</span>
+                <span>Capacity Load: <strong id="pred-sports-load">87.0%</strong></span>
+                <span>200 max</span>
+              </div>
+              <div class="pred-meta-details mt-10">
+                <div>Model: <strong id="pred-model-used">Random Forest Regressor (R²=0.969)</strong></div>
+                <div>Probability of Overcrowding: <strong id="pred-overcrowd-prob">94.2%</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actionable Recommendations & Explainability -->
+        <div class="grid-2 mt-20">
+          <!-- Lower Demand Recommendation Card -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-route"></i> Actionable Recommendation: Lower-Demand Slots</span>
+              <span class="badge badge-success">Decision Support</span>
+            </div>
+            <div id="sports-recommendation-details">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+
+          <!-- Explainability & Factor Contribution -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-magnifying-glass-chart"></i> Prediction Factor Explainability</span>
+              <span class="badge badge-info">Model Interpretability</span>
+            </div>
+            <p class="text-muted text-sm">Deconstruction of why this prediction was reached based on trained tree and linear feature effects:</p>
+            <div id="sports-explainability-breakdown" class="mt-10">
+              <!-- Dynamically rendered -->
+            </div>
+            <div class="chart-container mt-10" style="height: 190px;">
+              <canvas id="sportsExplainChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hourly Sports Visitor Trajectory Chart -->
+        <div class="card mt-20">
+          <div class="card-header">
+            <span class="card-title"><i class="fa-solid fa-chart-line"></i> Full 24-Hour Sports Complex Trajectory for Selected Day</span>
+            <span class="card-sub">Visualizing peak periods (&ge;80% capacity) vs recommended optimal workout windows</span>
+          </div>
+          <div class="chart-container" style="height: 280px;">
+            <canvas id="sportsDayTrajectoryChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 3: FOOD OUTLETS & SDG 12 ================= -->
+      <section id="tab-food" class="tab-pane">
+        <div class="section-hero">
+          <div>
+            <h1>Food Outlets Demand Planning & Waste Prevention</h1>
+            <p>Predicting student orders, minimizing leftover food surplus, and preventing lunchtime shortages.</p>
+          </div>
+          <div class="hero-stats">
+            <div class="pill-stat"><i class="fa-solid fa-leaf"></i> <strong>SDG 12:</strong> Responsible Consumption</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Food Demand Inputs & Predictor -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-cash-register"></i> Kitchen Demand & Prep Planner</span>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Food Outlet</label>
+                <select id="food-outlet-sel" class="form-control">
+                  <option value="Central Cafeteria">Central Cafeteria</option>
+                  <option value="Sports Complex Kiosk">Sports Complex Kiosk (Spillover Hub)</option>
+                  <option value="Library Coffee Lounge">Library Coffee Lounge</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Time Slot</label>
+                <select id="food-slot-sel" class="form-control">
+                  <option value="12">12:00 PM - 02:00 PM (Lunch Rush)</option>
+                  <option value="18">06:00 PM - 08:00 PM (Dinner Rush)</option>
+                  <option value="10">10:00 AM - 12:00 PM (Morning Snacks)</option>
+                  <option value="15">03:00 PM - 05:00 PM (Afternoon Coffee)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Sports Complex Visitor Spillover: <strong id="val-disp-sports-spill">140 visitors</strong></label>
+                <input type="range" id="food-sports-spillover" min="20" max="220" step="10" value="140" class="form-range">
+              </div>
+              <div class="form-group">
+                <label>Planned Kitchen Preparation Quantity: <strong id="val-disp-prep">175 meals</strong></label>
+                <input type="range" id="food-planned-prep" min="50" max="350" step="5" value="175" class="form-range">
+              </div>
+              <div class="form-group col-span-2">
+                <button class="btn btn-primary" id="btn-run-food-sim">
+                  <i class="fa-solid fa-utensils"></i> Calculate Order Demand & Surplus Risk
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Food Waste & Recommendation Card -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-clipboard-check"></i> Demand & Waste Impact Analysis</span>
+              <span class="badge" id="food-risk-pill">Balanced</span>
+            </div>
+            <div class="prediction-highlight-box">
+              <div class="pred-label">Expected Orders / Demand</div>
+              <div class="pred-val" id="pred-food-demand">162 <span class="unit">orders</span></div>
+              <div class="split-status mt-15">
+                <div class="split-item">
+                  <div class="split-label">Planned Preparation</div>
+                  <div class="split-val" id="disp-food-prep">175 meals</div>
+                </div>
+                <div class="split-item">
+                  <div class="split-label">Recommended Prep (Optimal)</div>
+                  <div class="split-val text-success" id="disp-food-optimal-prep">170 meals</div>
+                </div>
+              </div>
+              <div class="action-alert-box alert-success mt-15" id="food-eval-msg">
+                <i class="fa-solid fa-circle-check"></i>
+                <div id="food-eval-text">Optimal: Planned preparation matches predicted demand within safe operational margins (+5% buffer). Zero food waste expected!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-20">
+          <div class="card-header">
+            <span class="card-title"><i class="fa-solid fa-chart-column"></i> Food Demand vs Preparation vs Surplus Across Outlets</span>
+          </div>
+          <div class="chart-container" style="height: 260px;">
+            <canvas id="foodSurplusChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 4: LIBRARY & STUDY SPACES ================= -->
+      <section id="tab-library" class="tab-pane">
+        <div class="section-hero">
+          <div>
+            <h1>Library & Study Space Demand Analysis</h1>
+            <p>Tracking seat availability, forecasting exam crunch periods, and rerouting students to satellite study lounges.</p>
+          </div>
+          <div class="hero-stats">
+            <div class="pill-stat">Capacity: <strong>350 seats</strong></div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Library Simulator -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-chair"></i> Study Demand Parameters</span>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Time Slot</label>
+                <select id="lib-slot-sel" class="form-control">
+                  <option value="10">10:00 AM - 12:00 PM</option>
+                  <option value="14" selected>02:00 PM - 05:00 PM</option>
+                  <option value="17">05:00 PM - 08:00 PM</option>
+                  <option value="20">08:00 PM - 10:00 PM</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Academic Stage</label>
+                <select id="lib-stage-sel" class="form-control">
+                  <option value="regular">Regular Semester Term</option>
+                  <option value="assignment">Assignment / Project Deadline Period</option>
+                  <option value="exam" selected>Final Exam / Midterm Crunch Week</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Classes Ending Near Library</label>
+                <select id="lib-classes-sel" class="form-control">
+                  <option value="0">0 Batches</option>
+                  <option value="2" selected>2 Batches</option>
+                  <option value="4">4 Batches</option>
+                </select>
+              </div>
+              <div class="form-group col-span-2">
+                <button class="btn btn-primary" id="btn-run-lib-sim">
+                  <i class="fa-solid fa-magnifying-glass"></i> Predict Library Occupancy
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Library Result -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-square-check"></i> Study Space Availability</span>
+              <span class="badge badge-warning" id="lib-avail-badge">Limited Seats</span>
+            </div>
+            <div class="prediction-highlight-box">
+              <div class="pred-label">Predicted Library Occupancy</div>
+              <div class="pred-val" id="pred-lib-count">295 <span class="unit">/ 350 seats</span></div>
+              <div class="pred-meter">
+                <div class="meter-bar meter-bar-warning" id="pred-lib-meter-bar" style="width: 84%;"></div>
+              </div>
+              <div class="meter-labels">
+                <span>0</span>
+                <span>Occupancy Load: <strong id="pred-lib-load">84.3%</strong></span>
+                <span>350 max</span>
+              </div>
+              <div class="action-alert-box alert-warning mt-15" id="lib-satellite-box">
+                <i class="fa-solid fa-building-circle-arrow-right"></i>
+                <div>
+                  <strong>Recommended Overflow Study Zones:</strong>
+                  <ul class="text-sm mt-5" style="padding-left: 15px;">
+                    <li><strong>Engineering Hub Quiet Lounge:</strong> 35% load (3 min walk)</li>
+                    <li><strong>Science Block 3rd Floor Pods:</strong> 42% load (5 min walk)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-20">
+          <div class="card-header">
+            <span class="card-title"><i class="fa-solid fa-chart-line"></i> Exam Week vs Normal Semester Library Occupancy</span>
+          </div>
+          <div class="chart-container" style="height: 260px;">
+            <canvas id="libraryExamCompChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 5: CAMPUS DEMAND FLOW ================= -->
+      <section id="tab-flow" class="tab-pane">
+        <div class="section-hero">
+          <div>
+            <h1>Campus Demand Flow & Interconnections</h1>
+            <p>Investigating how academic activity, events, sports activity, food demand, and study spaces are dynamically interrelated.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Flow Network Diagram Card -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-diagram-project"></i> Interconnected Campus Flow Network</span>
+            </div>
+            <div class="flow-diagram-container">
+              <div class="flow-node node-academic">
+                <div class="node-title"><i class="fa-solid fa-landmark"></i> Academic Buildings</div>
+                <div class="node-sub">Class Dismissal Batches</div>
+              </div>
+              <div class="flow-arrows">
+                <div class="arrow-item"><span class="arrow-line"></span><span class="arrow-pct">40% &rarr; Dining</span></div>
+                <div class="arrow-item"><span class="arrow-line"></span><span class="arrow-pct">35% &rarr; Library</span></div>
+                <div class="arrow-item"><span class="arrow-line"></span><span class="arrow-pct">25% &rarr; Sports</span></div>
+              </div>
+              <div class="flow-destinations">
+                <div class="flow-node node-food">
+                  <div class="node-title"><i class="fa-solid fa-utensils"></i> Food Outlets</div>
+                  <div class="node-sub">Cafeteria / Kiosks</div>
+                </div>
+                <div class="flow-node node-sports">
+                  <div class="node-title"><i class="fa-solid fa-dumbbell"></i> Sports Complex</div>
+                  <div class="node-sub">Courts & Gym (Post-workout &rarr; 58% to Food)</div>
+                </div>
+                <div class="flow-node node-lib">
+                  <div class="node-title"><i class="fa-solid fa-book"></i> Library & Study</div>
+                  <div class="node-sub">Quiet Halls & Pods</div>
+                </div>
+              </div>
+            </div>
+            <div class="action-alert-box alert-info mt-15">
+              <i class="fa-solid fa-arrow-trend-up"></i>
+              <div><strong>Lead-Lag Dynamic:</strong> Sports complex crowd spikes are followed 1 time-slot later by a +21.2% order surge at the adjacent Sports Kiosk and Cafeteria.</div>
+            </div>
+          </div>
+
+          <!-- Cross-Facility Correlation Heatmap Table -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-table-cells"></i> Cross-Facility Correlation Matrix</span>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="flowCorrTable">
+                <thead>
+                  <tr>
+                    <th>Facility / Metric</th>
+                    <th>Sports Crowd</th>
+                    <th>Food Orders</th>
+                    <th>Library Seats</th>
+                    <th>CPI Pulse</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+            <div class="action-alert-box alert-warning mt-15">
+              <i class="fa-solid fa-scale-unbalanced"></i>
+              <div><strong>Exam Period Displacement:</strong> During exams, ~42% of regular recreational sports time is diverted into Library study, lowering sports overcrowding while maxing library capacity.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 6: K-MEANS + PCA CLUSTERS ================= -->
+      <section id="tab-clustering" class="tab-pane">
+        <div class="section-hero">
+          <div>
+            <h1>Campus Activity Patterns (K-Means + PCA)</h1>
+            <p>Unsupervised machine learning identifying systemic campus operational regimes with 2D PCA projection.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- 2D PCA Scatter Plot -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-circle-nodes"></i> 2D PCA Projection of Campus Activity States</span>
+              <div class="card-sub" id="pca-variance-label">PCA Variance Explained: PC1 (31.1%) + PC2 (23.8%) = 54.9%</div>
+            </div>
+            <div class="chart-container" style="height: 340px;">
+              <canvas id="pcaScatterChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Optimal K & Silhouette Analysis -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-chart-simple"></i> Silhouette Score Evaluation (K=2 to 6)</span>
+              <span class="badge badge-success" id="optimal-k-pill">Optimal K = 3</span>
+            </div>
+            <div class="chart-container" style="height: 220px;">
+              <canvas id="silhouetteChart"></canvas>
+            </div>
+            <div class="text-sm text-muted mt-10">
+              Evaluated using Euclidean distance over standardized multi-facility features. Highest silhouette coefficient validates K=3 distinct operational regimes.
+            </div>
+          </div>
+        </div>
+
+        <!-- Qualitative Cluster Profiles -->
+        <div class="card mt-20">
+          <div class="card-header">
+            <span class="card-title"><i class="fa-solid fa-id-card-clip"></i> Data-Driven Cluster Personas & Operational Playbooks</span>
+          </div>
+          <div class="grid-3 mt-15" id="cluster-cards-container">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 7: STATISTICAL ANALYSIS & EDA ================= -->
+      <section id="tab-statistics" class="tab-pane">
+        <div class="section-hero">
+          <div>
+            <h1>Exploratory Data Analysis & Statistical Testing</h1>
+            <p>Rigorous descriptive statistics, IQR outlier investigation, Pearson/Spearman correlations, and formal hypothesis tests.</p>
+          </div>
+        </div>
+
+        <!-- Descriptive Statistics Table -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title"><i class="fa-solid fa-table"></i> Descriptive Statistics across Campus Variables</span>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="descStatsTable">
+              <thead>
+                <tr>
+                  <th>Metric Name</th>
+                  <th>Count</th>
+                  <th>Mean</th>
+                  <th>Std Dev</th>
+                  <th>Median</th>
+                  <th>Q25</th>
+                  <th>Q75</th>
+                  <th>IQR</th>
+                  <th>Min</th>
+                  <th>Max</th>
+                  <th>Skewness</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Hypothesis Testing Results -->
+        <div class="card mt-20">
+          <div class="card-header">
+            <span class="card-title"><i class="fa-solid fa-vial"></i> Formal Hypothesis Testing (Parametric & Non-Parametric)</span>
+          </div>
+          <div class="grid-3 mt-15" id="hypothesis-cards-container">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- IQR Outlier Analysis -->
+        <div class="card mt-20">
+          <div class="card-header">
+            <div>
+              <span class="card-title"><i class="fa-solid fa-magnifying-glass-chart"></i> IQR Outlier Analysis (Domain Investigation)</span>
+              <div class="card-sub">In accordance with Section 7: Observations are contextualized rather than deleted because real crowd spikes are critical operational signals.</div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="outlierTable">
+              <thead>
+                <tr>
+                  <th>Record ID</th>
+                  <th>Date</th>
+                  <th>Time Slot</th>
+                  <th>Observed Visitors</th>
+                  <th>Threshold (Q75 + 1.5&times;IQR)</th>
+                  <th>Operational Event Context</th>
+                  <th>Pipeline Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 8: CLASSICAL ML MODELS ================= -->
+      <section id="tab-models" class="tab-pane">
+        <div class="section-hero">
+          <div>
+            <h1>Classical Machine Learning Model Benchmarks</h1>
+            <p>Strict classical ML (no deep learning/LLMs). Rigorous train/test split evaluation comparing linear, ensemble, and gradient boosted models.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Regressors Comparison Table -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-chart-line"></i> Continuous Regression Models (Visitor & Order Demand)</span>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="regModelTable">
+                <thead>
+                  <tr>
+                    <th>Domain</th>
+                    <th>Model Candidate</th>
+                    <th>MAE</th>
+                    <th>RMSE</th>
+                    <th>R² Score</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Classifiers Comparison Table -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title"><i class="fa-solid fa-tags"></i> Classification Models (Overcrowding & Risk Levels)</span>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="clfModelTable">
+                <thead>
+                  <tr>
+                    <th>Domain</th>
+                    <th>Classifier</th>
+                    <th>Accuracy</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>F1-Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Global Feature Importance -->
+        <div class="card mt-20">
+          <div class="card-header">
+            <span class="card-title"><i class="fa-solid fa-ranking-star"></i> Global Feature Importances (Random Forest Mean Decrease in Impurity)</span>
+          </div>
+          <div class="chart-container" style="height: 300px;">
+            <canvas id="globalImportanceChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= TAB 9: DATASET & TRANSPARENCY ================= -->
+      <section id="tab-data" class="tab-pane">
+        <div class="section-hero">
+          <div>
+            <h1>Dataset Explorer & Methodological Transparency</h1>
+            <p>Compliance with Section 11: Transparent labeling of simulated benchmark observations and support for live campus data ingestion.</p>
+          </div>
+          <div class="hero-stats">
+            <div class="pill-stat">Total Records: <strong id="dataset-total-count">500</strong></div>
+            <div class="pill-stat">Label: <strong>CALIBRATED_SIMULATION_BENCHMARK</strong></div>
+          </div>
+        </div>
+
+        <div class="action-alert-box alert-warning">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <div>
+            <strong>Section 11 Compliance Notice:</strong> Synthetic or simulated data is strictly disclosed and labeled as <code>CALIBRATED_SIMULATION_BENCHMARK</code>. Campus IQ provides the data ingestion form below to record and append real campus sensor observations.
+          </div>
+        </div>
+
+        <!-- Excel (.xlsx) Upload & Retraining Card -->
+        <div class="card mt-20">
+          <div class="card-header">
+            <div>
+              <span class="card-title"><i class="fa-solid fa-file-excel text-success"></i> Upload Custom Campus Dataset (.xlsx / .xls / .csv)</span>
+              <div class="card-sub">Import your prepared Excel spreadsheet. The system will automatically map your columns, compute derived metrics (Sports Load, Surplus, CPI), and retrain all models.</div>
+            </div>
+            <span class="badge badge-success"><i class="fa-solid fa-bolt"></i> Auto-Retrain Pipeline</span>
+          </div>
+
+          <div class="grid-2">
+            <!-- Dropzone -->
+            <div class="upload-dropzone" id="upload-dropzone">
+              <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
+              <div class="dropzone-text">Drag & drop your <strong>.xlsx</strong> or <strong>.csv</strong> file here, or click to browse</div>
+              <div class="dropzone-sub">Supports Excel (.xlsx, .xls) and CSV with any column naming (auto fuzzy-mapped)</div>
+              <input type="file" id="excel-file-input" accept=".xlsx, .xls, .csv" style="display: none;">
+              <button class="btn btn-primary mt-10" type="button" onclick="document.getElementById('excel-file-input').click()">
+                <i class="fa-solid fa-folder-open"></i> Browse Excel File
+              </button>
+              <div id="selected-file-info" class="selected-file-pill mt-10" style="display: none;">
+                <i class="fa-solid fa-file-excel"></i> <span id="selected-file-name">filename.xlsx</span> (<span id="selected-file-size">0 KB</span>)
+              </div>
+            </div>
+
+            <!-- Upload Settings & Action -->
+            <div class="upload-settings">
+              <div class="form-group">
+                <label>Import Mode</label>
+                <select id="upload-mode-sel" class="form-control">
+                  <option value="replace" selected>Replace Current Dataset (Train models on your data only)</option>
+                  <option value="append">Append to Current Dataset (Merge with benchmark)</option>
+                </select>
+              </div>
+              <div class="action-alert-box alert-info mt-10">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <div class="text-xs">
+                  <strong>Smart Auto-Mapping:</strong> Column headers like <em>"Sports Visitors"</em>, <em>"Time"</em>, <em>"Gym"</em>, <em>"Food Orders"</em>, <em>"Library Seats"</em>, <em>"Exams"</em> are automatically detected and normalized.
+                </div>
+              </div>
+              <button class="btn btn-primary w-100 mt-15" id="btn-submit-upload" disabled>
+                <i class="fa-solid fa-gear"></i> Upload & Retrain Classical ML Pipeline
+              </button>
+              <div id="upload-status-msg" class="mt-10" style="display: none;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Filter & Table -->
+        <div class="card mt-20">
+          <div class="card-header">
+            <span class="card-title"><i class="fa-solid fa-table-list"></i> Recent Observations</span>
+            <div class="search-box">
+              <input type="text" id="dataset-search" placeholder="Search date, slot, event..." class="form-control">
+            </div>
+          </div>
+          <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+            <table class="data-table" id="datasetTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Source Label</th>
+                  <th>Date</th>
+                  <th>Day</th>
+                  <th>Slot</th>
+                  <th>Hour</th>
+                  <th>Sports Visitors</th>
+                  <th>Sports Load</th>
+                  <th>Food Orders</th>
+                  <th>Library Seats</th>
+                  <th>CPI</th>
+                </tr>
+              </thead>
+              <tbody id="datasetTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="js/charts.js?v=3.0"></script>
+  <script src="js/app.js?v=3.0"></script>
+</body>
+</html>
