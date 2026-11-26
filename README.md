@@ -8,7 +8,6 @@
 > • **Arju** — `S25CSEU1868`  
 > • **Angel** — `S25CSEU1873`  
 > **UN SDG Alignment:** SDG 11 (*Sustainable Cities and Communities*) & SDG 12 (*Responsible Consumption and Production*)  
-> **Project Report:** [**Campus_IQ_Project_Report.pdf**](Campus_IQ_Project_Report.pdf) | [**Campus_IQ_Project_Report.docx**](Campus_IQ_Project_Report.docx)  
 > **Live Web Application:** `python web/server.py` &rarr; [http://localhost:8090](http://localhost:8090)
 
 ---
@@ -168,6 +167,7 @@ Campus-IQ/
 │   ├── train_dataset.csv               # 392 training observations (80%)
 │   ├── test_dataset.csv                # 98 testing observations (20%)
 │   ├── campus_iq_simulated.csv         # Benchmark dataset
+│   ├── campus_iq_simulated_benchmark.csv # Reference baseline benchmark dataset
 │   └── generate_dataset.py             # Deterministic data generation script
 ├── models_saved/                       # Serialized trained model suites & metadata
 │   ├── sports_suite.joblib             # Trained Sports complex models
@@ -175,15 +175,6 @@ Campus-IQ/
 │   ├── library_suite.joblib            # Trained Library models
 │   ├── cluster_suite.joblib            # Trained K-Means & PCA models
 │   └── pipeline_summary.json           # Serialized metrics and performance metadata
-├── report_assets/                      # High-resolution figures for academic report
-│   ├── fig1_campus_layout.png          # Isometric campus zones layout
-│   ├── fig2_methodology_flowchart.png  # Mandatory 5-phase methodology flowchart
-│   ├── fig3_correlation_matrix.png     # Pearson feature correlation heatmap
-│   ├── fig4_pca_clusters.png           # 2D PCA cluster projection
-│   ├── fig5_silhouette_scores.png      # K-Means silhouette coefficient curve
-│   ├── fig6_model_comparison.png       # Regressor benchmark comparison
-│   ├── fig7_feature_importance.png     # Random Forest MDI feature attribution
-│   └── fig8_demand_flow.png            # Markov demand transition network
 ├── src/                                # Core modular Python package
 │   ├── models/                         # Facility-specific ML models
 │   │   ├── sports_models.py
@@ -200,18 +191,15 @@ Campus-IQ/
 ├── web/                                # Production interactive web application
 │   ├── css/style.css                   # Custom responsive typography & modern theme
 │   ├── images/                         # Clean campus vector illustrations
+│   │   ├── building_clean.png
+│   │   └── campus_map.png
 │   ├── js/                             # Modular JavaScript clients
 │   │   ├── app.js                      # UI event handling & reactive state
 │   │   ├── chart.umd.min.js            # Chart.js library
 │   │   └── charts.js                   # Interactive canvas visualizations
 │   ├── index.html                      # Main campus dashboard
 │   └── server.py                       # Python HTTP server with auto port failover
-├── Campus_IQ_Midterm_Evaluation.ipynb  # Comprehensive evaluated Jupyter notebook
-├── Campus_IQ_PreProcessing_and_EDA.ipynb # Companion EDA notebook
-├── Campus_IQ_Project_Report.pdf        # Official 18-page Bennett University Project Report
-├── Campus_IQ_Project_Report.docx       # Editable Microsoft Word version of Project Report
-├── Campus_IQ_System_Architecture.pdf   # High-resolution architectural diagram
-├── Campus_IQ_System_Architecture.png   # Architectural schematic image
+├── Campus_IQ_PreProcessing_and_EDA.ipynb # Preprocessing, EDA, and statistical distributions
 ├── evaluate_all.py                     # Full benchmark evaluation script
 ├── import_xlsx.py                      # Master Excel converter script
 ├── run_pipeline.py                     # One-click end-to-end ML pipeline runner
